@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptCuentasCliente" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="b9290202-d33b-4686-b41f-3be97f3b212d">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yossnaider"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="323"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="672"/>
+	<style name="style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{venta_estado}==true]]></conditionExpression>
+			<style forecolor="#990033" isBold="true" isItalic="true"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{venta_estado}==false]]></conditionExpression>
+			<style forecolor="#006666" isBold="true" isItalic="true"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="nota_venta_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     cliente.`id`,
+     cliente.`interno`,
+     cliente.`cedula`,
+     cliente.`nombres`,
+     cliente.`direccion`,
+     cliente.`telefono`,
+     cliente.`zona`,
+     ciudad.`nombre` AS ciudad_nombre,
+     venta.`id` AS venta_id,
+     venta.`fecha` AS venta_fecha,
+     venta.`valor` AS venta_valor,
+     venta.`estado` AS venta_estado,
+     detalleventa.`id` AS detalleventa_id,
+     detalleventa.`producto_id` AS detalleventa_producto_id,
+     detalleventa.`cantidad` AS detalleventa_cantidad,
+     detalleventa.`valor` AS detalleventa_valor,
+     detalleventa.`total` AS detalleventa_total,
+     producto.`nombre` AS producto_nombre,
+     producto.`detalle` AS producto_detalle,
+     producto.`precio_compra` AS producto_precio_compra,
+     producto.`serie` AS producto_serie,
+     producto.`estado` AS producto_estado,
+     producto.`marca` AS producto_marca,
+     detalleventa.`ganancia` AS detalleventa_ganancia
+FROM
+     `yossnaider`.`venta` venta INNER JOIN `yossnaider`.`cliente` cliente ON venta.`cliente_id` = cliente.`id`
+     INNER JOIN `yossnaider`.`ciudad` ciudad ON cliente.`ciudad_id` = ciudad.`id`
+     INNER JOIN `detalleventa` detalleventa ON venta.`id` = detalleventa.`venta_id`
+     INNER JOIN `producto` producto ON detalleventa.`producto_id` = producto.`id`
+WHERE
+     venta.id = $P{nota_venta_id}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="interno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombres" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="zona" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ciudad_nombre" class="java.lang.String"/>
+	<field name="venta_id" class="java.lang.Integer"/>
+	<field name="venta_fecha" class="java.sql.Date"/>
+	<field name="venta_valor" class="java.math.BigDecimal"/>
+	<field name="venta_estado" class="java.lang.Boolean"/>
+	<field name="detalleventa_id" class="java.lang.Integer"/>
+	<field name="detalleventa_producto_id" class="java.lang.Integer"/>
+	<field name="detalleventa_cantidad" class="java.lang.Integer"/>
+	<field name="detalleventa_valor" class="java.math.BigDecimal"/>
+	<field name="detalleventa_total" class="java.math.BigDecimal"/>
+	<field name="producto_nombre" class="java.lang.String"/>
+	<field name="producto_detalle" class="java.lang.String"/>
+	<field name="producto_precio_compra" class="java.math.BigDecimal"/>
+	<field name="producto_serie" class="java.lang.String"/>
+	<field name="producto_estado" class="java.lang.Boolean"/>
+	<field name="producto_marca" class="java.lang.String"/>
+	<field name="detalleventa_ganancia" class="java.math.BigDecimal"/>
+	<pageHeader>
+		<band height="194" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="110" width="59" height="20" uuid="7101343e-5217-4ef2-b3e9-9c514d034844"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="130" width="59" height="20" uuid="adc63e96-c405-4719-acd3-d8ca9d544c2e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Interno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="150" width="59" height="20" uuid="55abbdab-a3f1-46c2-b067-e464445b0554"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Cédula:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="170" width="59" height="18" uuid="fd6b27e0-4449-49c1-b78b-5b38984e661d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="109" width="52" height="20" uuid="b43533e9-6333-4782-9a2b-1e1add72b6a6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="130" width="52" height="20" uuid="31b8fbfd-a2d0-43ec-b486-4c2dc032cba7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ciudad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="130" width="52" height="20" uuid="b0159a3f-f0c8-40c9-a022-2129dd845bef"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Zona:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="168" width="52" height="20" uuid="58d976dc-e8d7-4072-ae32-ed5600713999"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="149" width="52" height="20" uuid="e1ec3e39-ad57-45e1-857f-3a6f732100ff"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<image>
+				<reportElement mode="Opaque" x="2" y="27" width="553" height="79" backcolor="#E8F3FC" uuid="b3cb34e0-c200-418d-a26c-9a8dcac3c1a1"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<imageExpression><![CDATA["C:\\yossnaider\\Reportes\\encabezado.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="73" y="110" width="78" height="20" uuid="469f75e9-afc3-4207-a522-1a3ee1d4327e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="130" width="78" height="20" uuid="414ee906-184b-4142-bd17-f13198c92d1f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{interno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="150" width="78" height="20" uuid="f45a1a37-ab23-44ff-911e-0dfd5a0cd694"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="170" width="168" height="18" uuid="acae1a4d-8b8f-415c-b387-11a1cc8e20b9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="109" width="246" height="20" uuid="13921ec4-ec79-4b86-a405-3f72912e6244"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="130" width="78" height="20" uuid="f51a9f73-b9b0-48b5-871e-c277f45cb6d2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zona}=="N"?"Norte":$F{zona}=="S"?"Sur":"Centro"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="130" width="116" height="20" uuid="ed396635-2e80-4eac-8748-5905beb1f9d6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciudad_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="150" width="116" height="20" uuid="fb73ec0a-8944-46ae-8282-f2c97589fc15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="1" y="0" width="554" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="56e3da8a-3e2d-40e0-843f-0d22c1946086">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e02e8f6-b024-431a-824b-5a335a9f84c1"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NOTA DE VENTA:"+ String.format("%012d",$F{venta_id})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="294" y="170" width="116" height="20" uuid="a30a5ec1-6c32-411f-b255-20da79079a8b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venta_fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="168" width="52" height="22" uuid="99b6a440-b120-4d5d-9bba-cc6c234da45f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="style1" x="462" y="169" width="78" height="21" uuid="39304cb4-5015-463f-8b30-5c042a0f27da"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venta_estado}==true?"POR PAGAR":"PAGADO"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="72" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="e8f2f855-01fa-46d8-8705-fc7d1f0c4053">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e02e8f6-b024-431a-824b-5a335a9f84c1"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="72" y="0" width="227" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="da759e52-2b3e-4547-82a3-d89a5895f249">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31ba88d8-8a6f-4022-9e16-2cd96e98f43a"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="299" y="0" width="97" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="5f6c221a-2cae-4df0-828e-ae09401aaf64">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="50a7ed89-48f9-4237-978f-69343ad81989"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="396" y="0" width="79" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="d32cdad4-0a77-4905-b55e-5ea601589a15">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="198412f8-f650-4b45-b197-78b4dc32ae93"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="475" y="0" width="79" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="d03b8bb2-d393-4ab4-9b38-70fe9aa5597a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="198412f8-f650-4b45-b197-78b4dc32ae93"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32">
+			<property name="com.jaspersoft.studio.layout"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="73" y="0" width="226" height="32" uuid="cd077b2d-9271-44c6-89ca-9a8b7caf6748"/>
+				<box leftPadding="5" rightPadding="5">
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto_nombre}+"/"+$F{producto_detalle}+"/"+$F{producto_marca}+"/"+$F{producto_serie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="72" height="32" uuid="354582bf-badf-4c78-a931-f0a10ac49a61"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalleventa_producto_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="0" width="79" height="32" uuid="6daea7a8-0797-431b-a989-5e8b81bd3d47"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalleventa_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="0" width="79" height="32" uuid="7f942ae6-2a1c-4cfe-86f7-20dd82233946"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalleventa_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="299" y="0" width="97" height="32" uuid="f90f6557-ae2c-4b33-884d-7715036d5d1b"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalleventa_valor}.doubleValue()+($F{detalleventa_valor}.doubleValue())*($F{detalleventa_ganancia}.doubleValue()/100)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="475" y="0" width="79" height="20" uuid="f9ff7b46-92ed-4e41-902d-e10e72eebfba"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venta_valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="396" y="0" width="79" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="bcc108e8-47de-4628-9c94-291a14c911d1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="198412f8-f650-4b45-b197-78b4dc32ae93"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

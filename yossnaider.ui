@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>YOSSNAIDER</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Recursos/clientes.png</normaloff>Recursos/clientes.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuConfiguraci_n">
+    <property name="title">
+     <string>Configuración</string>
+    </property>
+    <addaction name="actionCiudades"/>
+    <addaction name="separator"/>
+    <addaction name="actionCobradores"/>
+   </widget>
+   <widget class="QMenu" name="menuClientes">
+    <property name="title">
+     <string>Clientes</string>
+    </property>
+    <addaction name="actionRegistro_de_Clientes"/>
+    <addaction name="actionCuentas_por_Cobbrar"/>
+    <addaction name="actionPagos"/>
+   </widget>
+   <widget class="QMenu" name="menuProductos">
+    <property name="title">
+     <string>Productos</string>
+    </property>
+    <addaction name="actionRegistro_de_Productos"/>
+    <addaction name="actionInventario"/>
+    <addaction name="actionReportes"/>
+   </widget>
+   <widget class="QMenu" name="menuNotas_de_Venta">
+    <property name="title">
+     <string>Notas de Venta</string>
+    </property>
+    <addaction name="actionRegistro"/>
+    <addaction name="actionReporte"/>
+   </widget>
+   <addaction name="menuConfiguraci_n"/>
+   <addaction name="menuClientes"/>
+   <addaction name="menuProductos"/>
+   <addaction name="menuNotas_de_Venta"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCiudades">
+   <property name="text">
+    <string>Ciudades</string>
+   </property>
+  </action>
+  <action name="actionCobradores">
+   <property name="text">
+    <string>Cobradores</string>
+   </property>
+  </action>
+  <action name="actionRegistro_de_Clientes">
+   <property name="text">
+    <string>Registro de Clientes</string>
+   </property>
+  </action>
+  <action name="actionCuentas_por_Cobbrar">
+   <property name="text">
+    <string>Cuentas por Cobrar</string>
+   </property>
+  </action>
+  <action name="actionRegistro_de_Productos">
+   <property name="text">
+    <string>Registro de Productos</string>
+   </property>
+  </action>
+  <action name="actionInventario">
+   <property name="text">
+    <string>Inventario</string>
+   </property>
+  </action>
+  <action name="actionPagos">
+   <property name="text">
+    <string>pagos</string>
+   </property>
+  </action>
+  <action name="actionReportes">
+   <property name="text">
+    <string>Reportes</string>
+   </property>
+  </action>
+  <action name="actionRegistro">
+   <property name="text">
+    <string>Registro</string>
+   </property>
+  </action>
+  <action name="actionReporte">
+   <property name="text">
+    <string>Reportes</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

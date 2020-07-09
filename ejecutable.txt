@@ -1,0 +1,2 @@
+dependencia pip install pyinstaller 
+pyinstaller --windowed --icon=./personas.ico yossnaider.py

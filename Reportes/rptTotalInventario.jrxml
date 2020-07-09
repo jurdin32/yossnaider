@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptCuentasCliente" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="b9290202-d33b-4686-b41f-3be97f3b212d">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Yossnaider"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="323"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="672"/>
+	<queryString>
+		<![CDATA[SELECT
+     kardex.`id` AS kardex_id,
+     kardex.`producto_id` AS kardex_producto_id,
+     kardex.`detalle` AS kardex_detalle,
+     kardex.`tipo` AS kardex_tipo,
+     kardex.`fecha` AS kardex_fecha,
+     kardex.`cantidad` AS kardex_cantidad,
+     kardex.`total_venta` AS kardex_total_venta,
+     kardex.`venta_id` AS kardex_venta_id,
+     kardex.`total_compra` AS kardex_total_compra,
+     kardex.`precio_compra` AS kardex_precio_compra,
+     kardex.`precio_venta` AS kardex_precio_venta,
+     producto.`nombre` AS producto_nombre,
+     producto.`detalle` AS producto_detalle,
+     producto.`precio_compra` AS producto_precio_compra,
+     producto.`marca` AS producto_marca,
+     producto.`serie` AS producto_serie,
+     detalleventa.`ganancia` AS detalleventa_ganancia,
+     detalleventa.`total` AS detalleventa_total,
+     detalleventa.`valor` AS detalleventa_valor
+FROM
+     `producto` producto INNER JOIN `kardex` kardex ON producto.`id` = kardex.`producto_id`
+     INNER JOIN `detalleventa` detalleventa ON producto.`id` = detalleventa.`producto_id`
+     AND kardex.`venta_id` = detalleventa.`venta_id`]]>
+	</queryString>
+	<field name="kardex_id" class="java.lang.Integer"/>
+	<field name="kardex_producto_id" class="java.lang.Integer"/>
+	<field name="kardex_detalle" class="java.lang.String"/>
+	<field name="kardex_tipo" class="java.lang.String"/>
+	<field name="kardex_fecha" class="java.sql.Date"/>
+	<field name="kardex_cantidad" class="java.lang.Integer"/>
+	<field name="kardex_total_venta" class="java.math.BigDecimal"/>
+	<field name="kardex_venta_id" class="java.lang.Integer"/>
+	<field name="kardex_total_compra" class="java.math.BigDecimal"/>
+	<field name="kardex_precio_compra" class="java.math.BigDecimal"/>
+	<field name="kardex_precio_venta" class="java.math.BigDecimal"/>
+	<field name="producto_nombre" class="java.lang.String"/>
+	<field name="producto_detalle" class="java.lang.String"/>
+	<field name="producto_precio_compra" class="java.math.BigDecimal"/>
+	<field name="producto_marca" class="java.lang.String"/>
+	<field name="producto_serie" class="java.lang.String"/>
+	<field name="detalleventa_ganancia" class="java.math.BigDecimal"/>
+	<field name="detalleventa_total" class="java.math.BigDecimal"/>
+	<field name="detalleventa_valor" class="java.math.BigDecimal"/>
+	<variable name="total_costo" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[($F{detalleventa_valor}.doubleValue ()  * $F{kardex_cantidad}.doubleValue ())]]></variableExpression>
+	</variable>
+	<variable name="detalleventa_total" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{detalleventa_total}]]></variableExpression>
+	</variable>
+	<variable name="total_ganado" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{detalleventa_total}.doubleValue()-($F{producto_precio_compra}.doubleValue()*$F{kardex_cantidad}.doubleValue())]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="136" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement mode="Opaque" x="0" y="0" width="800" height="79" backcolor="#E8F3FC" uuid="b3cb34e0-c200-418d-a26c-9a8dcac3c1a1"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<imageExpression><![CDATA["C:\\yossnaider\\Reportes\\encabezado.png"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="116" width="100" height="20" uuid="d2eaa6ef-2404-4245-bfc5-f2eb50ea55a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="96" width="800" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="e05c26f1-aa43-4329-8674-1d3efe47f82c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REGISTROS DEL INVENTARIO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement mode="Opaque" x="245" y="0" width="170" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="d91a2265-db21-4e39-9959-278fb583e430"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REGISTRO EN KARDEX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="415" y="0" width="46" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="77144e71-457c-436f-ab81-52eb4e92e8ca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="461" y="0" width="60" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="77688a5f-a83b-44eb-a44c-6e80fafff158"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="521" y="0" width="28" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="94ae6495-f530-49f5-94e6-6a12cce960f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANT.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="549" y="0" width="40" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="c79eb7ee-9d0a-4275-a840-eb00f49e03c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P. CT.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="38" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="94f5c6cb-9b1e-4a78-a667-1285c4a67718"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="589" y="0" width="36" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="2743e162-6b2f-4258-81d9-8cba2a3bb8fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[% INC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="754" y="0" width="46" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="bdcb9349-44b0-491c-9b76-bdc2f45a6060"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="666" y="0" width="49" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="ccd2684b-0690-4ea9-bd70-844bffd338e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GANAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="715" y="0" width="39" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="90f0ff15-ccf0-47d1-8de7-82074cba6d48"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="625" y="0" width="41" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="3112e92e-3430-4cc1-8e9b-78ec02e76f0b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PVP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="38" y="0" width="207" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="fac81e67-4a6d-48e1-9911-95cbe501728d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRODUCTO/DETALLE/MARCA/SERIE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="39">
+			<property name="com.jaspersoft.studio.layout"/>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="38" height="39" uuid="aa767f36-b1b2-49af-bea8-901ac8d2923b"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kardex_producto_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="245" y="0" width="170" height="39" uuid="f5768e25-0d00-466f-9132-dc0489aa7a96"/>
+				<box leftPadding="5" rightPadding="5">
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kardex_detalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="415" y="0" width="46" height="39" uuid="d5244e2c-ae6d-4b9f-b6d8-ba806d20014a"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kardex_tipo}.equals("E")?"Egreso":"Ingreso"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="461" y="0" width="60" height="39" uuid="4cab4728-8c42-4eba-abbf-33482916f7d5"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kardex_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="521" y="0" width="28" height="39" uuid="76b1c07b-c7de-44a4-a67a-6461ee7b284f"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kardex_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="549" y="0" width="40" height="39" uuid="e72c1b27-912b-4f18-898b-df957ecf74e7"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto_precio_compra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="589" y="0" width="36" height="39" uuid="ba05205a-c47b-4c01-8f30-83863e5581d1"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalleventa_ganancia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement mode="Opaque" x="715" y="0" width="39" height="39" uuid="383948b0-69c6-4f16-a712-05d817c1be0f"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalleventa_valor}.doubleValue ()  * $F{kardex_cantidad}.doubleValue ()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="754" y="0" width="46" height="39" uuid="d97e7419-f4ef-48f5-8107-38f0bbde1a2e"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalleventa_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement mode="Opaque" x="666" y="0" width="49" height="39" uuid="f963bbcb-d008-46bb-966c-84c45cdc9a77"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalleventa_total}.doubleValue()-($F{producto_precio_compra}.doubleValue()*$F{kardex_cantidad}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement mode="Opaque" x="625" y="0" width="41" height="39" uuid="35df8e43-ebfa-4176-93dd-8490931c08b6"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{producto_precio_compra}.doubleValue()*($F{detalleventa_ganancia}.doubleValue()/100))+$F{producto_precio_compra}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="38" y="0" width="207" height="39" uuid="81ad6790-f341-4309-9508-509fbfe5d092"/>
+				<box leftPadding="5" rightPadding="5">
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto_nombre}+"/"+$F{producto_detalle}+"/"+$F{producto_marca}+"/"+$F{producto_serie}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement mode="Opaque" x="715" y="0" width="39" height="20" backcolor="#FFCC00" uuid="f0f83908-9098-4951-9088-7da9aea176ce"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_costo}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Page" pattern="###0.00;-###0.00">
+				<reportElement mode="Opaque" x="754" y="0" width="46" height="20" forecolor="#FFFFFF" backcolor="#006666" uuid="a3d8f3fc-4b8e-4a6e-85ce-a83316693b61"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{detalleventa_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement mode="Opaque" x="666" y="0" width="49" height="20" forecolor="#FFFFFF" backcolor="#993300" uuid="51cf231f-57f7-4a00-bade-95fea6a44b93"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_ganado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="666" height="20" forecolor="#FFFFFF" backcolor="#0066CC" uuid="8c16aace-4b10-4ac5-a153-031ac9ba5214"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTALES]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>
